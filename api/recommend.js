@@ -80,7 +80,7 @@ ${userInput}
     try {
       parsed = JSON.parse(jsonMatch[0]);
     } catch (err) {
-      console.error(" JSON parse error:", err);
+      console.error("❌ JSON parse error:", err);
 
       return res.status(200).json({
         mainPath: "解析失败（JSON错误）",
@@ -96,7 +96,7 @@ ${userInput}
     return res.status(200).json(parsed);
 
   } catch (error) {
-    console.error(" Gemini API error:", error);
+    console.error("🔥 Gemini API error:", error);
 
     return res.status(500).json({
       error: "Gemini API error",
