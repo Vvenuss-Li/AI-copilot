@@ -15,14 +15,15 @@ export default async function handler(req, res) {
     const prompt = `
 你是职业路径推荐AI。
 
-根据用户输入，返回一个职业路径推荐结果。
+请根据用户输入，输出一个职业路径推荐结果。
+不要输出解释文字，只返回结构化结果。
 
 用户输入：
 ${userInput}
 `;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${process.env.GOOGLE_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GOOGLE_API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -36,23 +37,23 @@ ${userInput}
           ],
           generationConfig: {
             response_mime_type: "application/json",
-            response_schema: {
-              type: "OBJECT",
+            response_json_schema: {
+              type: "object",
               properties: {
-                mainPath: { type: "STRING" },
-                backupPath: { type: "STRING" },
-                strategy: { type: "STRING" },
+                mainPath: { type: "string" },
+                backupPath: { type: "string" },
+                strategy: { type: "string" },
                 tradeoffs: {
-                  type: "ARRAY",
-                  items: { type: "STRING" },
+                  type: "array",
+                  items: { type: "string" },
                 },
                 steps: {
-                  type: "ARRAY",
-                  items: { type: "STRING" },
+                  type: "array",
+                  items: { type: "string" },
                 },
                 risks: {
-                  type: "ARRAY",
-                  items: { type: "STRING" },
+                  type: "array",
+                  items: { type: "string" },
                 },
               },
               required: [
